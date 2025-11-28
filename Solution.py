@@ -21,7 +21,7 @@ def findCheapestOp(unsantitizedNumber, listOfOps):
     # list to keep track of the smallests
     opArr = [float('inf') for _ in listOfOps]
     while number:
-        currentNumber = int(number)
+        currentNumber = number
         if currentNumber in dic and opArr[dic2[currentNumber]] == float('inf'):
             opArr[dic2[currentNumber]] = min(opArr[dic2[currentNumber]], dic[currentNumber])
         else:
@@ -33,8 +33,8 @@ def findCheapestOp(unsantitizedNumber, listOfOps):
 
 
 # Testing ground
-opData = [[[1, 0.9], [268, 5.1], [46, 0.17], [4620,0.0], [468,0.15], [4631,0.15], [4673,0.9], [46732,1.1]],
-                              [[1, 0.92], [44,0.5], [467,1.0], [48,1.2]]]
+opData = [[["1", 0.9], ["268", 5.1], ["46", 0.17], ["4620",0.0], ["468",0.15], ["4631",0.15], ["4673",0.9], ["46732",1.1]],
+                              [["1", 0.92], ["44",0.5], ["467",1.0], ["48",1.2]]]
 
 import unittest
 
@@ -51,6 +51,10 @@ class TestStringMethods(unittest.TestCase):
     def test_correct_cases_with_special_characters(self):
         number = "+46-73-212345"
         self.assertEqual(f"Operator: 2, Price/hr = 1.0, Number: {number}", findCheapestOp(number, opData))
+    
+    def test_correct_cases_with_special_characters_starting_with_0(self):
+        number = "+046-73-212345"
+        self.assertEqual(f"Prefix not found", findCheapestOp(number, opData))
 
 if __name__ == '__main__':
     unittest.main()
